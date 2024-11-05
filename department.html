@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Your Doctor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Existing CSS code here */
+		
+		        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .sidebar {
+            background-color: #fff;
+            color: #333;
+            width: 200px;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sidebar h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: background 0.3s;
+            font-size: 20px;
+        }
+        .sidebar a:hover {
+            background-color: #eee;
+        }
+        .sidebar .active {
+            background-color: #555555;
+            color: #fff;
+        }
+        .bottom-menu {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        .sidebar ul li {
+            margin-bottom: 20px;
+        }
+        .bottom-menu .logout a {
+            color: red;
+            background: none;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-left: 220px;
+        }
+        /* Fly-up animation */
+        @keyframes flyUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .container {
+            margin-left: 220px; /* Matches sidebar width */
+            padding: 20px;
+            flex: 1; /* Expands to fill available space */
+            min-height: calc(100vh - 100px); /* Adjust based on header/footer height */
+            animation: flyUp 0.8s ease-out;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            font-size: 14px;
+        }
+		
+		
+        .doctor-details {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .doctor-details h4 {
+            margin: 0;
+            font-size: 30px;
+            color: #00bcd4;
+        }
+        .doctor-details p {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #555;
+        }
+		
+    </style>
+</head>
+<body>
+    <!-- Existing HTML code here -->
+	    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Med-Care</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="appointment.html"><i class="fas fa-calendar-alt"></i> Appointment</a></li>
+            <li><a href="department.html"  class="active"><i class="fas fa-building"></i> Departments</a></li>
+            <li><a href="care.html"><i class="fas fa-clinic-medical"></i> Care Service</a></li>
+        </ul>
+        <ul class="bottom-menu">
+            <li><a href="patient.html"><i class="fas fa-user"></i> Patient</a></li>
+            <li class="logout"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    </div>
+    <div class="header">
+        FIND YOUR DOCTOR<br>Department Wise
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <label for="branch">Select Branch Name</label>
+            <select id="branch">
+                <option>Med-Care Hospital, Dhaka, Bangladesh</option>
+            </select>
+        </div>
+	
+        <div class="form-group">
+            <label for="department">Select Doctor Department Name</label>
+            <select id="department">
+                <option>Select Department Name</option>
+                <option value="medicine">Medicine & Nephrology</option>
+                <option value="cardiology">Cardiology</option>
+                <!-- More options here with unique values -->
+                <option value="respiratory / pulmonology medicine">Respiratory / Pulmonology Medicine</option>
+                <option value="psychiatry">Psychiatry</option>
+                <option value="general surgery">General Surgery</option>
+               
+                <option value="spine surgery">Spine Surgery</option>
+                <option value="neuro surgery">Neuro Surgery</option>
+                <option value="orthopedic surgery">Orthopedic Surgery</option>
+               
+                <option value="urology">Urology</option>
+                <option value="gynaecology & obstetrics">Gynaecology & Obstetrics</option>
+
+                <option value="paediatric haematology & oncology">Paediatric Haematology & Oncology</option>
+                
+                <option value="pediatric surgery">Pediatric Surgery</option>
+               
+                <option value="dental">Dental</option>
+               
+                <option value="anesthesiology & pain">Anesthesiology & Pain</option>
+                <option value="natural medicine">Natural Medicine</option>
+                
+                <option value="diabetes">Diabetes</option>
+                <option value="nutrition & food">Nutrition & Food</option>
+            </select>
+        </div>
+
+        <!-- Container for doctor details -->
+        <div id="doctor-info" class="doctor-details" style="display: none;">
+            <!-- JavaScript will insert doctor details here -->
+        </div>
+    </div>
+
+<script>
+    // Define the doctors for each department with images
+    const departmentDoctors = {
+        "medicine": [
+            { 
+                name: "Professor Dr. Md. Ayub Ali Chowdhury", 
+                qualifications: "MBBS, FCPS (Medicine), MD (Nephrology), Gold Medalist", 
+                designation: "Professor", 
+				specialization: "Medicine and Kidney", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Dr. Hasinatul Zannat ", 
+				qualifications: "MBBS, FCPS(Medicine), MD(Nephrology)", 
+				designation: "Consultant",
+                specialization: " Nephrology & Medicine ", 
+                contact: "10615,+88 09610010615",  
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+        "cardiology": [
+            { 
+                name: "Prof. Dr. Khondker Shaheed Hussain", 
+                qualifications: "MBBS, MD (Cardiology)", 
+                designation: "Professor", 
+				specialization: "Clinical & Interventional Cardiology ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "DR. MD. MESBAHUL ISLAM", 
+                qualifications: "MBBS, DCard, MD (Cardiology)", 
+                designation: "Assistant Professor ", 
+				specialization: " Interventional Cardiologist", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+        // Add more departments with doctors here
+		"respiratory / pulmonology medicine": [
+            { 
+                name: "Professor Dr. Muhammad Rafiqul Islam", 
+                qualifications: "MBBS (DMC), MD (Chest)", 
+                designation: "Professor", 
+				specialization: "Respiratory(Chest) Medicine ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Professor. Dr.A.K.M. Rafiqul Bari", 
+                qualifications: "MBBS, MD (Chest), FCCP (USA)", 
+                designation: "Professor ", 
+				specialization: " Medicine, Asthma, Chest Disease & Allergy Specialist ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"psychiatry": [
+            { 
+                name: "Professor Dr. Jhunu Shamsun Nahar ", 
+                qualifications: "MBBS, FCPS (Psych)", 
+                designation: "Professor", 
+				specialization: "Psychiatry & Psychotherapy", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Prof. Dr. AHM Mustafizur Rahman", 
+                qualifications: "FCPS (Psych)", 
+                designation: "Professor ", 
+				specialization: " Psychiatry & Psychotherapy", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"general surgery": [
+            { 
+                name: "Dr. Farhana Yesmin", 
+                qualifications: "MBBS, BCS(Health), FCPS(Surgery)", 
+                designation: "Professor", 
+				specialization: " Breast, Colorectal, Laparoscopic & General Surgery", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Brig. Gen. (Retd.) Prof. Dr. Md. Saidur Rahman ", 
+                qualifications: "MBBS, FCPS (Surgery)", 
+                designation: "Professor and Ex-Chief Surgeon & Adviser in Surgery ", 
+				specialization: "General & Laparoscopic Surgery ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"spine surgery": [
+            { 
+                name: "Prof. Dr. Md. Kamrul Ahsan", 
+                qualifications: "MBBS, D-Ortho(DU), MS(Ortho)", 
+                designation: "Professor", 
+				specialization: "Spine Surgery( Orthopaedic Spine Surgury)", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"neuro surgery": [
+            { 
+                name: "Dr. F.H. Chowdhuary (Forhad)", 
+                qualifications: "MBBS, FCPS (Surgery), MS (Neurosurgery)", 
+                designation: "Assistant Professor", 
+				specialization: "Neuro & Spine Surgery ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Dr. Md. Omar Faruk", 
+                qualifications: "MBBS, BCS(Health), MS(Neuro Surgery, BSMMU), Brain, Nurve & Spine", 
+                designation: "Assistant Professor ", 
+				specialization: "Neuro Surgery ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"orthopedic surgery": [
+            { 
+                name: "Dr. Mir Hamidur Rahman", 
+                qualifications: "MBBS, MS(Ortho)", 
+                designation: "Professor", 
+				specialization: " Orthopedic Surgery ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Dr. Md. Rashidul Hasan", 
+                qualifications: "MBBS(DMC), MS(Ortho)", 
+                designation: "Professor", 
+				specialization: "Orthopedic Surgeon", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"urology": [
+            { 
+                name: "Professor Dr. M. Fakhrul Islam", 
+                qualifications: "MBBS, Ph.D (Surgery)", 
+                designation: "Professor", 
+				specialization: "Urology", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Dr. Md. Abdus Salam", 
+                qualifications: "MBBS,FCPS(Surgery),MRCS(Edin,UK), MS(Urology)", 
+                designation: " Asst. Professor ", 
+				specialization: "Urologist, General & Laparoscopic Surgeon", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+	    "gynaecology & obstetrics": [
+            { 
+                name: "Dr. Fahmida Bayes Kakan", 
+                qualifications: "MBBS, MS(Gynaecology & Obs.)", 
+                designation: "Consultant", 
+				specialization: "Gynaecology & Obstetrics ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Professor Dr. Rashida Khanom", 
+                qualifications: "MBBS, DGO, MCPS, FCPS (Gynae & Obs). C-Med", 
+                designation: "Professor", 
+				specialization: " Gynecology & Obstetrics ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"paediatric haematology & oncology": [
+            { 
+                name: "Dr. Sabina Karim", 
+                qualifications: "MBBS, FCPS(Paediatrics), MD(Paediatric Haematology & Oncology)", 
+                designation: "Associate Professor", 
+				specialization: "Neonate, Child & Adolescent Disease and Pediatric Haemato Oncology", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"pediatric surgery": [
+            { 
+                name: "Dr. Md. Sajedul Haque", 
+                qualifications: "MBBS, BCS(Health), MS(Pediatric Surgery), MMEd(Medical Education), FACS(USA)", 
+                designation: "Associate Professor ", 
+				specialization: "Neonatology-Pediatric, Burn, Plastic & Laparoscopic Surgery", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Professor Dr. Mohammed Shadrul Alam", 
+                qualifications: "MBBS, FCPS, MS, EMHE, FRCS & Fellow Pediatric Urology(USA)", 
+                designation: "Professor", 
+				specialization: "Pediatric Urology & Surgery ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		
+		"dental": [
+            { 
+                name: "Dr. Roksana Begum", 
+                qualifications: "BDS(DDC), PGT(MOHKSA) 1987", 
+                designation: "Consultant", 
+				specialization: "General Dentistry", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Dr. Fatema Khatun Rumi", 
+                qualifications: "BDS (DDC), 1999", 
+                designation: "Dental Surgeon", 
+				specialization: "Endodontics ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"anesthesiology & pain": [
+            { 
+                name: "Brig.Gen.(Retd) Prof. Dr. M H M Delwar Hossain", 
+                qualifications: "MBBS, DA, MCPS, FCPS (Anesthesia) ", 
+                designation: "Professor ", 
+				specialization: "Anesthesia & Pain ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"natural medicine": [
+            { 
+                name: "Dr. Md. Fida Hassan Lohani", 
+                qualifications: "BUMS (DU), BHS (UPPER)", 
+                designation: "Consultant", 
+				specialization: "Natural Medicine", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"diabetes": [
+            { 
+                name: "Dr. M.A Azad", 
+                qualifications: "MBBS(DMC), CCD (BIRDEM), CCU (B.S.U), Diabetology.", 
+                designation: "Consultant ", 
+				specialization: "Diabetes & Medicine ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            },
+            { 
+                name: "Dr. Md. Tayeb Hossain", 
+                qualifications: "MBBS, CCD (BIRDEM), PGT (Medicine), Fellowship (ICDDRB)", 
+                designation: "Consultant ", 
+				specialization: "Medicine & Diabetics ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ],
+		"nutrition & food": [
+            { 
+                name: "Sumaiya Shahnaz", 
+                qualifications: "BSc (Hons), MSc (Food & Nutrition). ", 
+                designation: "Consultant", 
+				specialization: "Food & Nutrition, Specialist on Clinical Diabetes ", 
+				contact: " 10615,+88 09610010615",
+                image: "default.png" // Replace with actual image path
+            }
+        ]
+    };
+
+    // Handle department selection
+    document.getElementById("department").addEventListener("change", function () {
+        const selectedDepartment = this.value;
+        const doctorInfoDiv = document.getElementById("doctor-info");
+
+        if (departmentDoctors[selectedDepartment]) {
+            doctorInfoDiv.style.display = "block";
+            doctorInfoDiv.innerHTML = "";
+
+            departmentDoctors[selectedDepartment].forEach((doctor) => {
+                const doctorDetail = `
+                    <div style="display: flex; align-items: center;">
+                        <img src="${doctor.image}" alt="${doctor.name}" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                        <div>
+                            <h4>${doctor.name}</h4>
+							<p><b  style="color: #00008B;">Qualifications:</b> ${doctor.qualifications}</p>
+							<p><b  style="color: #00008B;">Designation:</b> ${doctor.designation}</p>
+                            <p><b  style="color: #00008B;">Specialization:</b> ${doctor.specialization}</p>
+                            <p><b  style="color: #00008B;">Contact:</b> ${doctor.contact}</p>
+                        </div>
+                    </div>
+                    <hr>
+                `;
+                doctorInfoDiv.innerHTML += doctorDetail;
+            });
+        } else {
+            doctorInfoDiv.style.display = "none";
+        }
+    });
+</script>
+
+	    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Med-Care Hospital. All rights reserved.</p>
+        <p>
+            <a href="#" style="color: white; text-decoration: none; margin-right: 10px;" 
+               onmouseover="this.style.textDecoration='underline'" 
+               onmouseout="this.style.textDecoration='none'">Privacy Policy</a> |
+            <a href="#" style="color: white; text-decoration: none; margin-left: 10px;"
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'">Terms of Service</a>
+        </p>
+    </footer>
+</body>
+</html>

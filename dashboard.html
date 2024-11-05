@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Med-Care Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+             font-family: Arial, sans-serif;
+             background-color: #f4f4f4;
+             margin: 0;
+             padding: 0;
+             overflow-x: hidden;
+            }
+        .container {
+             display: flex;
+            }
+        .sidebar {
+             width: 250px;
+             background-color: #fff;
+             padding: 20px;
+             box-shadow: 2px 0 5px rgba(54, 53, 53, 0.1);
+             display: flex;
+             flex-direction: column;
+             height: 100vh;
+             justify-content: space-between;
+            }
+
+        .menu {
+             list-style: none;
+             padding: 0;
+            }
+
+       .bottom-menu {
+             list-style: none;
+             padding: 0;
+             margin-top: auto;
+            }
+
+        .sidebar ul li {
+             margin-bottom: 20px;
+            }
+
+        .sidebar ul li a {
+             text-decoration: none;
+             color: #333;
+             font-size: 18px;
+             display: flex;
+             align-items: center;
+            }
+
+        .sidebar ul li a i {
+             margin-right: 10px;
+            }
+
+        .sidebar ul li a.active {
+             background-color: #333;
+             color: #fff;
+             padding: 10px;
+             border-radius: 5px;
+            }
+
+        .sidebar ul li.logout a {
+             color: red;
+             font-weight: bold;
+             text-align: center;
+            }
+			
+			/* Base styling for sidebar items */
+        .nav-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Active class for dashboard */
+        .nav-item.active {
+            background-color: #ddd; /* Light grey color */
+            font-weight: bold;
+        }
+
+        /* Hover effect for all nav items */
+        .nav-item:hover {
+            background-color: #f0f0f0; /* Faint grey color on hover */
+        }
+		
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            animation: flyUp 1s ease-out;
+        }
+        @keyframes flyUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 30px;
+        }
+        .header .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .header .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            margin-right: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .card:last-child {
+            margin-right: 0;
+        }
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 24px;
+            margin: 0;
+        }
+        .card small {
+            display: block;
+            margin-top: 10px;
+            color: #888;
+        }
+        .doctor-info {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .doctor-info .doctor-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .doctor-info .doctor-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .doctor-info .doctor-card .doctor-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .statistics, .expense, .management, .schedule, .hospital-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .statistics h3, .expense h3, .management h3, .schedule h3, .hospital-info h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .statistics .chart, .expense .chart {
+            height: 200px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #888;
+        }
+        .hospital-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .hospital-info ul li {
+            margin-bottom: 10px;
+        }
+        .hospital-info ul li i {
+            margin-right: 10px;
+            color: #888;
+        }
+		 .patient-management {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .patient-management table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .patient-management table th, .patient-management table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .patient-management .search-box, .patient-management .filter-button {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .schedule .calendar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .schedule .calendar div {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+            margin-right: 10px;
+        }
+        .schedule .calendar div.active {
+            background-color: #333;
+            color: #fff;
+        }
+        .schedule .calendar div:last-child {
+            margin-right: 0;
+        }
+        .schedule .events {
+            list-style: none;
+            padding: 0;
+        }
+        .schedule .events li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+		.events li span:first-child {
+            text-align: left; /* Align the first span (event name) to the left */
+        }
+
+        .events li span:last-child {
+            text-align: right; /* Align the last span (doctor name) to the right */
+        }
+        .more-options {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .more-link {
+             display: inline-block;
+             padding: 10px 20px;
+             background-color: #333; /* Match this with your sidebar active color */
+             color: #fff;
+             text-decoration: none;
+             border-radius: 5px;
+             transition: background-color 0.3s ease;
+        }
+
+        .more-link:hover {
+              background-color: #555; /* Darker shade on hover */
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2 style="font-size: 45px;">Med-Care</h2>
+            <ul>
+                <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="appointment.html"><i class="fas fa-calendar-alt"></i> Appointment <span>(6)</span></a></li>
+                <li><a href="department.html"><i class="fas fa-building"></i> Departments</a></li>
+                <li><a href="care.html"><i class="fas fa-clinic-medical"></i>Care Service</a></li>
+			</ul>
+			<ul class="bottom-menu">
+				<li><a href="patient.html"><i class="fas fa-user"></i> Patient</a></li>
+                <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><font color ="red"> Log Out</font></a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Hello, (Patient Name) <i class="fas fa-hand-paper"></i></h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search anything">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <!-- Doctor Information -->
+            <div class="doctor-info">
+                <h3>Doctor Details</h3>
+                <div class="doctor-card">
+                    <img src="default.png" >
+                    <div class="doctor-details">
+                        <strong>Dr. Syeda Ummay Kulsum</strong>
+                        <p>Gynecology & Obstetrics<br>Med-Care D.Lab & Consultation Center</p>
+                        <small>Hot Line: 10615, +88 09610010615</small>
+                    </div>
+                </div>
+				<div class="doctor-card">
+                    <img src="default.png" >
+                    <div class="doctor-details">
+                        <strong>Dr. Qaisur Rabbi</strong>
+                        <p>Orthopedic Surgery<br>Med-Care D.Lab & Consultation Center</p>
+                        <small>Hot Line: 10615, +88 09610010627</small>
+                    </div>
+                </div>
+				<div class="doctor-card">
+                    <img src="default.png" >
+                    <div class="doctor-details">
+                        <strong>Dr. Nazmoon Nahar (Shampa)</strong>
+                        <p>GENERAL SURGERY<br>Med-Care D.Lab & Consultation Center</p>
+                        <small>Hot Line: 10615, +88 09610010622</small>
+                    </div>
+                </div>
+				<div class="doctor-card">
+                    <img src="default.png" >
+                    <div class="doctor-details">
+                        <strong>Dr. Md. Rakan-uz-zaman</strong>
+                        <p>Neurology<br>Med-Care D.Lab & Consultation Center</p>
+                        <small>Hot Line: 10615, +88 09610010625</small>
+                    </div>
+                </div>
+				<div class="doctor-card">
+                    <img src="default.png" >
+                    <div class="doctor-details">
+                        <strong>Dr. Ishrat Jahan Liza</strong>
+                        <p>Dental Unit<br>Med-Care D.Lab & Consultation Center</p>
+                        <small>Hot Line: 10615, +88 09610010635</small>
+                    </div>
+                </div>
+				<div class="doctor-card">
+                    <img src="default.png" >
+                    <div class="doctor-details">
+                        <strong>Prof. Dr. Faruk Ahammad</strong>
+                        <p>Medicine<br>Med-Care D.Lab & Consultation Center</p>
+                        <small>Hot Line: 10615, +88 09610010607</small>
+                    </div>
+					
+                </div>
+                <!-- Repeat doctor cards for other doctors as needed -->
+                <div class="more-options">
+                    <a href="department.html" class="more-link">More</a>
+                  </div>
+            </div>
+
+            <div class="statistics">
+                <h3><b>Patients Statistics</b></h3>
+                <img src="A-graph-that-shows-the-number-of-patients-who-were-admitted-to-the-hospital-due-to.png">
+				<p>A graph that shows the number of patients who were admitted to the hospital(ie, blue line; number of cases per day) and 
+				the number of patients who Discharged (ie, red line; number of Discharged per day).
+				Data were collected from March 1 to July 3, 2024</p>
+            </div>
+
+            <div class="expense">
+                <h3><b>Total Expense</b></h3>
+				<img src="sb168f5.jpg">
+            </div>
+
+            <!-- Hospital Info Section -->
+            <div class="hospital-info">
+                <h3>Hospital Services</h3>
+                <ul>
+                    <div class="hospital-info">
+                    <li><i class="fas fa-heartbeat"></i><b> Cardiology & Vascular Services</b></li>
+					<p>The hospital is providing cardiology services by 2 modern cath-lab and round the clock CCU facility including cardiac surgery (Adult & Pediatric) by 2 cardiac OT by 
+					renowned cardiologists and cardiac surgeons. This hospital has its own stoke units with DSA 
+					and stanting with coiling facility. Vascular surgery with PAG, Stenting and Laser services is another service of this hospital.</p>
+					</div>
+                    <div class="hospital-info">
+                    <li><i class="fas fa-x-ray"></i><b> Radiology & Medical Imaging</b></li>
+					<p>We loves to take challenge to diagnosis the disease and offering treatment to the patient.
+					We offer the best Radiology and imaging services to the patient with industry latest 3 Tesla MRI, Acquisition,
+					Multi slice CT Scan, Digital 100 msH X Ray 4D Ultrasonography and others.
+					We are the pioneer in 1.5 Tesla MRI and 128 Slice CT scan in Bangladesh. A group of well educated experienced consultants
+					with European and North American degrees are working hard to verify the reports. </p>
+					</div>
+                    <div class="hospital-info">
+                    <li><i class="fas fa-stethoscope"></i><b>Laboratory Services</b></li>
+					<p>Our Laboratory having a state of art technology for medical diagnostic laboratory
+					which included Aptio Automation, Orthoclinical Diagnostics & Dia Sorin system for Biochemistry & Immunology.
+					Also, have Sebia electrophoresis (capillary),
+					Biorad HPLC base HbA1c analyzer & Allergy Analyzer (64 allergens).
+					Molecular Diagnostics using Gene Xpert, Rotor-Gene Q (Qiagen), CFx96 (BioRad), 
+					AMPLIlab (Adaltis) and Molbio System for PCR base diagnosis.</p>
+					</div>
+                    <div class="hospital-info">
+					<li><i class="fas fa-user-md"></i><b>Diabetes center</b></li>
+					<p>Diabetes (diabetes mellitus) is classed as a metabolism disorder.
+					Metabolism refers to the way our bodies use digested food for energy and growth.</p>
+					</div>
+                    <div class="hospital-info">
+					<li><i class="fas fa-ambulance"></i><b>Pain and Physiotherapy Center</b></li>
+					<p>Pain is a protective symptom. It leads a patient to take medication and treatment.
+					Our pain center is dedicated to care your pain and keeping you in comfort. 
+					We have renowned doctors, physiotherapists and world-class instruments for pain management and rehabilitation of the patients.
+					We love to address all sort of pain and offer quality services to make our patients happy and smile. 
+					You are welcome to visit our pain and physiotherapy center. </p>
+					</div>
+                    <div class="hospital-info">
+					<li><i class="fas fa-tooth"></i><b>Dental Center</b></li>
+					<p>Our Med-Care Specialized in Dental Centre is a Centre of excellence where advanced services are rendered by a group of experienced renowned professors and consultants. 
+					Here we serve the patient's world-class treatment in different subspecialty like oral and maxillofacial surgery,
+					Conservates & Cosmetic Dentistry & general dentistry by both male and female dental surgeons through modern equipment’s and advanced materials with reasonable price</p>
+                    </div>
+                </ul>
+            </div>
+			 <!-- Patient Management Section -->
+            <div class="patient-management">
+                <h3>Patient Management</h3>
+                <div class="search-box">
+                    <input type="text" placeholder="Search patients...">
+                </div>
+                <button class="filter-button">Advanced Filter</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Admit Date</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Shamim Ahmed</td>
+                            <td>+880 123-456-7890</td>
+                            <td>2024-04-07</td>
+                            <td>Inpatient</td>
+                            <td>Admitted</td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Faria Sultana</td>
+                            <td>+880 987-654-3210</td>
+                            <td>2024-04-08</td>
+                            <td>Outpatient</td>
+                            <td>Discharged</td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Arif Mahmud</td>
+                            <td>+880 135-766-7253</td>
+                            <td>2024-04-17</td>
+                            <td>Emergency</td>
+                            <td>In Treatment</td>
+                        </tr>
+						<tr>
+                            <td>004</td>
+                            <td>Sirin Alom</td>
+                            <td>+880 535-671-7157</td>
+                            <td>2024-04-29</td>
+                            <td>Emergency</td>
+                            <td>In Treatment</td>
+							<tr>
+                            <td>005</td>
+                            <td>Lamia Islam</td>
+                            <td>+880 153-476-2560</td>
+                            <td>2024-05-09</td>
+                            <td>Inpatient</td>
+                            <td>Admitted</td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="schedule">
+                <h3>Schedule</h3>
+                <div class="calendar">
+                    <div class="active">Mon 11</div>
+                    <div>Tue 12</div>
+                    <div>Wed 13</div>
+                    <div>Thu 14</div>
+                    <div>Fri 15</div>
+                </div>
+                <ul class="events">
+                    <li>
+                        <span>Oral Maxillofacial Surgery</span>
+                        <span>10 AM - 1 PM</span>
+                        <span>DR. Nishat Tasnim</span>
+                    </li>
+					<li>
+                        <span>Nephrologey</span>
+                        <span>10 AM - 1 PM</span>
+                        <span>Dr. Saif Bin Mizan</span>
+                    </li>
+                    <li>
+                        <span>Colorectal Surgery</span>
+                        <span>6:00 PM - 9:00 PM</span>
+                        <span>Dr. Md. Rezwan Shah</span>
+                    </li>
+					<li>
+                        <span>Ortho-Surgery</span>
+                        <span>5.00PM -9.00 PM</span>
+                        <span>Dr. Wakil Ahmed </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Med-Care Hospital. All rights reserved.</p>
+        <p>
+            <a href="#" style="color: white; text-decoration: none; margin-right: 10px;" 
+            onmouseover="this.style.textDecoration='underline'" 
+            onmouseout="this.style.textDecoration='none'">Privacy Policy</a> |
+            <a href="#" style="color: white; text-decoration: none; margin-left: 10px;"
+            onmouseover="this.style.textDecoration='underline'"
+            onmouseout="this.style.textDecoration='none'">Terms of Service</a>
+        </p>
+    </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll('.card');
+            const doctorCards = document.querySelectorAll('.doctor-info .doctor-card');
+            const footer = document.querySelector('footer');
+            const infoSections = document.querySelectorAll('.statistics, .expense, .hospital-info, .schedule');
+
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            doctorCards.forEach((doctorCard, index) => {
+                setTimeout(() => {
+                    doctorCard.style.opacity = '1';
+                    doctorCard.style.transform = 'translateX(0)';
+                }, index * 200);
+            });
+
+            infoSections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            setTimeout(() => {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }, infoSections.length * 200);
+        });
+    </script>
+</body>
+</html>

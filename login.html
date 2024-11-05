@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Set the body and HTML to take full height and prevent horizontal scrolling */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Make container flexible to fill space */
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            margin: 20px auto; /* Center the container horizontally */
+        }
+
+        .left {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(to bottom, #ff80ab 50%, #1a237e 50%);
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .right img {
+            height: 450px;
+            width: 100%; /* Make image responsive */
+            max-width: 550px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .login-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            font-size: 16px;
+            color: #ddd;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .form-group a {
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .social-login {
+            margin-top: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .social-login a {
+            margin-right: 10px;
+            font-size: 14px;
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .social-login a:hover {
+            text-decoration: underline;
+        }
+
+        .home-contact-links {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .home-contact-links a {
+            margin: 0 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .home-contact-links a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="logo">MED-CARE</div>
+            <div class="login-title">Login</div>
+            <div class="login-subtitle">Welcome back, Please login to your account</div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="coolname@name.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember me</label>
+                <a href="#" style="float: left;">Forgot password</a>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" onclick="window.location.href='dashboard.html';">LOGIN</button>
+                <button class="btn btn-secondary" onclick="window.location.href='register.html';">SIGN UP</button>
+            </div>
+            <div class="social-login">
+                Or login with
+                <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                <a href="#"><i class="fab fa-google"></i> Google</a>
+                <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+            <div class="home-contact-links">
+                <a href="index.html">Home</a> | <a href="report.html">Contact</a>
+            </div>
+        </div>
+        <div class="right">
+            <img src="Download Medicine landing page template for free.jpg" alt="Medicine Landing Page">
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Med-Care Hospital. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </p>
+    </footer>
+</body>
+</html>

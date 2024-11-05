@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f8fa; /* Light background for modern look */
+            color: #333; /* Dark text for good readability */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .sidebar {
+            background-color: #fff;
+            color: #333;
+            width: 220px; /* Fixed width for sidebar */
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        .sidebar h2 {
+            font-size: 40px; /* Slightly smaller heading */
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar a {
+            color: #333; /* Dark color for links */
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: background 0.3s;
+            font-size: 20px; /* Slightly smaller link font size */
+        }
+        .sidebar a:hover {
+            background-color: #e6f7ff; /* Light hover color */
+        }
+        .sidebar .active {
+            background-color: #b3d7ff; /* Active link color */
+            color: #1a1a1a; /* Slightly darker text for contrast */
+        }
+        .bottom-menu {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        .sidebar ul li {
+             margin-bottom: 20px;
+            }
+		.bottom-menu .logout a {
+             color: red; /* Changed to red */
+             background: none;
+}
+        .container {
+            margin-left: 240px; /* Adjust margin to prevent overlap with sidebar */
+            padding: 50px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+        h2 {
+            font-size: 36px; /* Heading size */
+            margin-bottom: 20px;
+            color: #333; /* Primary color for headings */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px; /* Max width for form */
+            background: #ffffff; /* White background for the form */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners for modern look */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+        }
+        form label {
+            margin-top: 16px;
+            font-weight: bold; /* Bold labels for emphasis */
+        }
+        form input, form select {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #007bff; /* Primary color border */
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border 0.3s; /* Transition for border */
+        }
+        form input:focus, form select:focus {
+            border-color: #333; /* Darker border on focus */
+            outline: none; /* Remove outline */
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333; /* Primary button color */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s; /* Transition for button */
+        }
+        button:hover {
+            background-color: #555; /* Darker button color on hover */
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            clear: both;
+            font-size: 14px;
+        }
+        #thankYouMessage {
+            display: none; /* Hidden by default */
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Med-Care</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="appointment.html" class="active"><i class="fas fa-calendar-alt"></i> Appointment</a></li>
+            <li><a href="department.html"><i class="fas fa-building"></i> Departments</a></li>
+            <li><a href="care.html"><i class="fas fa-clinic-medical"></i>Care Service</a></li>
+        </ul>
+        <ul class="bottom-menu">
+            <li><a href="patient.html"><i class="fas fa-user"></i> Patient</a></li>
+            <li class="logout"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Book an Appointment</h2>
+        <form id="appointmentForm">
+            <label for="patientName">Patient Name:</label>
+            <input type="text" id="patientName" name="patientName" required placeholder="e.g. Mahmud">
+            
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" required placeholder="e.g. +1234567890">
+            
+            <label for="doctor">Choose Doctor:</label>
+            <select id="doctor" name="doctor" required>
+                <option value="Dr. Syeda Ummay Kulsum">Dr. Syeda Ummay Kulsum - Gynecology & Obstetrics</option>
+                <option value="Dr. Qaisur Rabbi">Dr. Qaisur Rabbi - Orthopedic Surgery</option>
+				<option value="Dr. Nazmoon Nahar (Shampa)">Dr. Nazmoon Nahar (Shampa) - GENERAL SURGERY</option>
+				<option value="Dr. Md. Rakan-uz-zaman">Dr. Md. Rakan-uz-zaman - Neurology</option>
+				<option value="Dr. Ishrat Jahan Liza">Dr. Ishrat Jahan Liza - Dental</option>
+				<option value="Prof. Dr. Faruk Ahammad">Prof. Dr. Faruk Ahammad - Medicine</option>
+            </select>
+            
+            <label for="appointmentDate">Date:</label>
+            <input type="date" id="appointmentDate" name="appointmentDate" required>
+            
+            <button type="submit">Book Appointment</button>
+        </form>
+        
+        <!-- Thank You Message -->
+        <div id="thankYouMessage">
+            <h2>Thank You!</h2>
+            <p>Your appointment has been booked successfully.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Med-Care Hospital. All rights reserved.</p>
+        <p>
+            <a href="#" style="color: white; text-decoration: none; margin-right: 10px;" 
+            onmouseover="this.style.textDecoration='underline'" 
+            onmouseout="this.style.textDecoration='none'">Privacy Policy</a> |
+            <a href="#" style="color: white; text-decoration: none; margin-left: 10px;"
+            onmouseover="this.style.textDecoration='underline'"
+            onmouseout="this.style.textDecoration='none'">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // JavaScript to handle form submission and show thank you message
+        document.getElementById("appointmentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Show thank you message
+            document.getElementById("thankYouMessage").style.display = "block";
+
+            // Optionally, you can reset the form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
