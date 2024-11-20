@@ -1,0 +1,165 @@
+    /* Existing and updated CSS styles */
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+	       .sidebar {
+            background-color: #fff;
+            color: #333;
+            width: 200px;
+            padding: 20px;
+            height: 100%;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+			overflow-y: auto;
+        }
+        .sidebar h2 {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: background 0.3s;
+            font-size: 20px;
+        }
+        .sidebar a:hover {
+            background-color: #eee;
+        }
+        .sidebar .active {
+            background-color: #555555;
+            color: #fff;
+        }
+        .bottom-menu {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+		.sidebar ul li {
+             margin-bottom: 20px;
+            }
+        .bottom-menu .logout a {
+            color: red;
+			margin-top:auto;
+			margin-bottom:70px;
+            background: none;
+        }
+    .container {
+        width: 60%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: flyUp 0.8s ease-in-out;
+    }
+    @keyframes flyUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .header .dot {
+        height: 10px;
+        width: 10px;
+        background-color: #3b82f6;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .header h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+    }
+    .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .profile img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%; /* Makes the image round */
+        margin-bottom: 20px;
+    }
+    .profile .info {
+        width: 100%;
+        text-align: left;
+    }
+    .info-item {
+        margin-bottom: 15px;
+    }
+    .info-item label {
+        display: block;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+    .info-item p {
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background-color: #f1f5f9;
+        color: #333;
+        margin: 0;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .buttons .btn {
+        width: 48%;
+        padding: 10px;
+        border: 2px dashed #d1d5db;
+        border-radius: 10px;
+        text-align: center;
+        color: #6b7280;
+        cursor: pointer;
+    }
+    .buttons .btn i {
+        margin-right: 5px;
+    }
+    .edit-profile {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .edit-profile button {
+        padding: 10px 20px;
+        border: 2px solid #3b82f6;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #3b82f6;
+        cursor: pointer;
+    }
+			footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            clear: both;
+            font-size: 14px;
+        }

@@ -1,0 +1,124 @@
+       /* Basic Page Styling */
+       body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        flex-wrap: wrap;
+        flex-grow: 1; /* Allows the content section to expand */
+    }
+    .image-container {
+        flex: 1;
+        min-width: 200px;
+        max-width: 400px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: flyUp 0.6s ease-out forwards;
+    }
+    .image-container img {
+        width: 100hv;
+        height: 100hv;
+        object-fit: contain; /* Ensures the image scales nicely */
+        max-height: 500px; /* Adjust to fit form height if needed */
+    }
+    .form-container {
+        flex: 2;
+        max-width: 500px;
+        margin: 20px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: flyUp 0.6s ease-out forwards;
+    }
+    h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    /* Form Styling */
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #333;
+    }
+    input, textarea, button {
+        font-size: 16px;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+    textarea {
+        resize: vertical;
+    }
+    button {
+        background-color: #0097a7;
+        color: white;
+        border: none;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #007a89;
+    }
+    .feedback-message {
+        font-size: 18px; /* Adjust as needed */
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: flyUp 0.6s ease-out forwards;
+    }
+
+    /* Fly-Up Animation */
+    @keyframes flyUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+        width: 100%;
+        clear: both;
+        font-size: 14px;
+        margin-top: auto; /* Pushes the footer to the bottom */
+    }
